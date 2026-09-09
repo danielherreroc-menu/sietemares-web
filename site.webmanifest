@@ -1,0 +1,9 @@
+{
+  "name": "Restaurante Siete Mares",
+  "short_name": "Siete Mares",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf7f0",
+  "theme_color": "#082a4a",
+  "icons": [{"src":"/assets/images/favicon.png","sizes":"256x256","type":"image/png"}]
+}

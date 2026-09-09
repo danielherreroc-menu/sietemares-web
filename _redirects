@@ -1,0 +1,21 @@
+# Rastros de WordPress: nunca deben responder 200 una vez migrado el dominio real.
+# (mismo patrón ya usado en restaurantewaikiki.com)
+/wp-admin/*              /                                301
+/wp-login.php            /                                301
+/feed/*                  /                                301
+/comments/feed/*         /                                301
+/author/*                /                                301
+/category/*              /                                301
+/tag/*                   /                                301
+/sitemap_index.xml       /sitemap.xml                     301
+/post-sitemap.xml        /sitemap.xml                     301
+/page-sitemap.xml        /sitemap.xml                     301
+
+# Redirección heredada del .htaccess original
+/siete-mares-menu/       /carta/                          301
+
+# NOTA para antes del corte de dominio real: falta auditar las URLs indexadas
+# de verdad en Search Console (igual que se hizo con Waikiki) para agregar
+# aquí cualquier página demo/vieja que Google todavía tenga indexada y que
+# no está listada arriba. Este archivo cubre solo los rastros genéricos de
+# WordPress más el único redirect que ya existía en el .htaccess.
