@@ -1,0 +1,44 @@
+name: Sincronizar menú desde Google Sheets
+
+on:
+  # Solo corre cuando alguien lo dispara a mano (sin cron), para no gastar
+  # minutos de Actions de balde. Se dispara desde GitHub: pestaña "Actions"
+  # del repo > "Sincronizar menú desde Google Sheets" > botón "Run workflow".
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-menu
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependencias
+        run: pip install google-auth google-api-python-client
+
+      - name: Regenerar carta/ y nuestras-bebidas/ desde los 4 Sheets
+        id: sync
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+        run: python generate_menu.py
+
+      - name: Commit y push si hubo cambios
+        if: steps.sync.outputs.changed == 'true'
+        run: |
+          git config user.name "sietemares-menu-sync[bot]"
+          git config user.email "actions@users.noreply.github.com"
+          git add carta/index.html nuestras-bebidas/index.html
+          git commit -m "Sincroniza menú desde Google Sheets [automático]"
+          git push
