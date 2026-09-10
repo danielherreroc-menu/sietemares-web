@@ -14,7 +14,7 @@
   <meta property="og:url" content="https://restaurantesietemares.com/carta/">
   <meta property="og:image" content="https://restaurantesietemares.com/assets/images/og-siete-mares.jpg">
   <meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Fachada de Restaurante Siete Mares, el clásico de mariscos de Panamá desde 1978">
+  <meta property="og:image:alt" content="Paella de mariscos y platos de Restaurante Siete Mares en Panamá">
   <meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://restaurantesietemares.com/assets/images/og-siete-mares.jpg">
   <link rel="icon" href="/assets/images/favicon.png" type="image/png">
   <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png"><link rel="manifest" href="/site.webmanifest">
@@ -23,7 +23,7 @@
   {
     "@context":"https://schema.org",
     "@graph":[
-      {"@type":"Menu","@id":"https://restaurantesietemares.com/carta/#menu","name":"Carta de Restaurante Siete Mares","url":"https://restaurantesietemares.com/carta/","inLanguage":"es-PA","provider":{"@id":"https://restaurantesietemares.com/#restaurant"}},
+      {"@type":"Menu","@id":"https://restaurantesietemares.com/carta/#menu","name":"Carta de Restaurante Siete Mares","url":"https://restaurantesietemares.com/carta/","inLanguage":"es-PA","provider":{"@id":"https://restaurantesietemares.com/#restaurant"},"hasMenuSection":[{"@type":"MenuSection","name":"Aperitivos fríos y calientes"},{"@type":"MenuSection","name":"Nuestra pesca"},{"@type":"MenuSection","name":"Mariscos"},{"@type":"MenuSection","name":"Carnes y aves"},{"@type":"MenuSection","name":"Arroces"},{"@type":"MenuSection","name":"Sopas y ensaladas"},{"@type":"MenuSection","name":"Postres, café y té"}]},
       {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":"https://restaurantesietemares.com/"},{"@type":"ListItem","position":2,"name":"Carta","item":"https://restaurantesietemares.com/carta/"}]}
     ]
   }
@@ -33,12 +33,12 @@
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="/" aria-label="Restaurante Siete Mares, inicio"><img src="/assets/images/logo-siete-mares.png" width="139" height="240" alt="Restaurante Siete Mares"></a>
+      <a class="brand" href="/" aria-label="Restaurante Siete Mares, inicio"><img src="/assets/images/logo-siete-mares-horizontal.svg" width="720" height="240" alt="Restaurante Siete Mares"></a>
       <button class="mobile-toggle" type="button" aria-expanded="false" aria-controls="menu-principal" data-nav-toggle><span class="mobile-bars" aria-hidden="true"></span> Menú</button>
       <nav class="site-nav" id="menu-principal" aria-label="Navegación principal" data-site-nav>
-        <details class="nav-dropdown current" data-nav-dropdown><summary>Carta</summary><div class="nav-dropdown-menu"><a href="/carta/#carta-principal" aria-current="page">Carta principal</a><a href="/carta/#postres">Postres, café y té</a></div></details>
-        <details class="nav-dropdown" data-nav-dropdown><summary>Bebidas</summary><div class="nav-dropdown-menu"><a href="/nuestras-bebidas/#vinos">Vinos</a><a href="/nuestras-bebidas/#bar">Cócteles y bar</a><a href="/nuestras-bebidas/#digestivos">Digestivos, brandy y cognac</a></div></details>
-        <a href="/salones-para-eventos-en-panama/">Eventos</a><a href="https://restaurantesietemares.com/club-siete-mares/">Club</a><a href="/certificados/">Certificados</a><a href="/ubicacion-siete-mares/">Ubicación</a>
+        <details class="nav-dropdown current" data-nav-dropdown><summary>Carta</summary><div class="nav-dropdown-menu"><a href="/carta/#carta-principal" aria-current="page">Carta</a><a href="/carta/#postres">Postres</a></div></details>
+        <details class="nav-dropdown" data-nav-dropdown><summary>Bebidas</summary><div class="nav-dropdown-menu"><a href="/nuestras-bebidas/#licores">Cócteles y licores</a><a href="/nuestras-bebidas/#vinos">Vinos</a></div></details>
+        <a href="/salones-para-eventos-en-panama/">Eventos</a><a href="/club-siete-mares/">Club</a><a href="/certificados/">Certificado de regalo</a><a href="/ubicacion-siete-mares/">Ubicación</a>
       </nav>
       <a class="button button-primary nav-reserve" href="https://widget.riservi.com/allies/restaurant-widget/restaurante-siete-mares-xlk?utm_campaign=Website" target="_blank" rel="noopener">Reservar</a>
     </div>
@@ -56,14 +56,12 @@
     <section class="section section-white">
       <div class="container">
         <nav class="menu-switcher" aria-label="Cambiar de menú">
-          <a href="/carta/#carta-principal" aria-current="page">Carta principal</a>
-          <a href="/carta/#postres">Postres, café y té</a>
+          <a href="/carta/#carta-principal" aria-current="page">Carta</a>
+          <a href="/carta/#postres">Postres</a>
+          <a href="/nuestras-bebidas/#licores">Cócteles y licores</a>
           <a href="/nuestras-bebidas/#vinos">Vinos</a>
-          <a href="/nuestras-bebidas/#bar">Cócteles y bar</a>
-          <a href="/nuestras-bebidas/#digestivos">Digestivos, brandy y cognac</a>
         </nav>
 
-        <!-- MENU-SYNC:TABS-CARTA -->
         <nav class="category-tabs" aria-label="Categorías de la carta">
           <a href="#carta-principal" aria-current="true">Aperitivos</a>
           <a href="#nuestra-pesca">Nuestra Pesca</a>
@@ -75,7 +73,6 @@
           <a href="#sopa-crema-y-ensalada">Sopa Crema y Ensalada</a>
           <a href="#adicionales">Adicionales</a>
         </nav>
-        <!-- /MENU-SYNC:TABS-CARTA -->
 
         <!-- MENU-SYNC:CARTA-COMIDA -->
         <section class="menu-category" id="carta-principal" data-menu-category data-category-id="aperitivos-calientes">
@@ -88,64 +85,64 @@
               <div>
                 <h3 data-name>Ceviche Frito</h3>
               </div>
-              <span class="menu-price" data-price>B/. 16</span>
+              <span class="menu-price">16</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="almejas-al-ajillo">
               <div>
                 <h3 data-name>Almejas al Ajillo</h3>
               </div>
-              <span class="menu-price" data-price>B/. 14</span>
+              <span class="menu-price">14</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="croquetas-de-bacalao-o-jamon-serrano">
               <div>
                 <h3 data-name>Croquetas de Bacalao o Jamón Serrano</h3>
               </div>
-              <span class="menu-price" data-price>B/. 9</span>
+              <span class="menu-price">9</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="calamares-a-la-plancha">
               <div>
                 <h3 data-name>Calamares a la Plancha</h3>
                 <p data-description>Media orden / orden completa</p>
               </div>
-              <span class="menu-price" data-price>B/. 8 / B/. 16</span>
+              <span class="menu-price">8 / 16</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="aranitas">
               <div>
                 <h3 data-name>Arañitas</h3>
                 <p data-description>Media orden / orden completa</p>
               </div>
-              <span class="menu-price" data-price>B/. 9 / B/. 18</span>
+              <span class="menu-price">9 / 18</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="fritura-di-mare">
               <div>
                 <h3 data-name>Fritura di Mare</h3>
               </div>
-              <span class="menu-price" data-price>B/. 16</span>
+              <span class="menu-price">16</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="pulpo-y-calamar-con-ajo">
               <div>
                 <h3 data-name>Pulpo y Calamar con Ajo</h3>
               </div>
-              <span class="menu-price" data-price>B/. 15</span>
+              <span class="menu-price">15</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="deditos-de-corvina">
               <div>
                 <h3 data-name>Deditos de Corvina</h3>
                 <p data-description>Media orden / orden completa</p>
               </div>
-              <span class="menu-price" data-price>B/. 9 / B/. 18</span>
+              <span class="menu-price">9 / 18</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="pulpo-al-carbon-o-a-la-gallega">
               <div>
                 <h3 data-name>Pulpo al Carbón o a la Gallega</h3>
                 <p data-description>Media orden / orden completa</p>
               </div>
-              <span class="menu-price" data-price>B/. 14 / B/. 26</span>
+              <span class="menu-price">14 / 26</span>
             </article>
           </div>
         </section>
 
-        <section class="menu-category" data-menu-category data-category-id="aperitivos-frios">
+        <section class="menu-category" id="aperitivos-frios" data-menu-category data-category-id="aperitivos-frios">
           <div class="category-heading">
             <h2 data-category-name>Fríos</h2>
             <span data-category-kicker>Aperitivos</span>
@@ -156,21 +153,21 @@
                 <h3 data-name>Ceviche de Corvina</h3>
                 <p data-description>Con chips</p>
               </div>
-              <span class="menu-price" data-price>B/. 14</span>
+              <span class="menu-price">14</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="ceviche-peruano">
               <div>
                 <h3 data-name>Ceviche Peruano</h3>
                 <p data-description>Con ají rocoto</p>
               </div>
-              <span class="menu-price" data-price>B/. 18</span>
+              <span class="menu-price">18</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="coctel-de-langostinos">
               <div>
                 <h3 data-name>Coctel de Langostinos</h3>
                 <p data-description>Con salsa calipso</p>
               </div>
-              <span class="menu-price" data-price>B/. 13</span>
+              <span class="menu-price">13</span>
             </article>
           </div>
         </section>
@@ -185,61 +182,61 @@
               <div>
                 <h3 data-name>Oleo con Mariscos</h3>
               </div>
-              <span class="menu-price" data-price>B/. 29</span>
+              <span class="menu-price">29</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="a-la-plancha">
               <div>
                 <h3 data-name>A la Plancha</h3>
               </div>
-              <span class="menu-price" data-price>B/. 22</span>
+              <span class="menu-price">22</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="con-ajo-rostizado">
               <div>
                 <h3 data-name>Con Ajo Rostizado</h3>
               </div>
-              <span class="menu-price" data-price>B/. 23</span>
+              <span class="menu-price">23</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="en-salsa-verde">
               <div>
                 <h3 data-name>En Salsa Verde</h3>
               </div>
-              <span class="menu-price" data-price>B/. 23</span>
+              <span class="menu-price">23</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="al-ajillo">
               <div>
                 <h3 data-name>Al Ajillo</h3>
               </div>
-              <span class="menu-price" data-price>B/. 23</span>
+              <span class="menu-price">23</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="mantequilla-negra-y-alcaparras">
               <div>
                 <h3 data-name>Mantequilla Negra y Alcaparras</h3>
               </div>
-              <span class="menu-price" data-price>B/. 26</span>
+              <span class="menu-price">26</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="champinones-frescos">
               <div>
                 <h3 data-name>Champiñones Frescos</h3>
               </div>
-              <span class="menu-price" data-price>B/. 24</span>
+              <span class="menu-price">24</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="corvina-rellena">
               <div>
                 <h3 data-name>Corvina Rellena</h3>
               </div>
-              <span class="menu-price" data-price>B/. 29</span>
+              <span class="menu-price">29</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="al-horno-sobre-arroz-de-setas">
               <div>
                 <h3 data-name>Al Horno sobre Arroz de Setas</h3>
               </div>
-              <span class="menu-price" data-price>B/. 30</span>
+              <span class="menu-price">30</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="en-camisa-seca-de-romesco">
               <div>
                 <h3 data-name>En Camisa Seca de Romesco</h3>
               </div>
-              <span class="menu-price" data-price>B/. 29</span>
+              <span class="menu-price">29</span>
             </article>
           </div>
         </section>
@@ -253,25 +250,25 @@
               <div>
                 <h3 data-name>Entraña al Grill (12 oz)</h3>
               </div>
-              <span class="menu-price" data-price>B/. 38</span>
+              <span class="menu-price">38</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="new-york-importado-14-oz">
               <div>
                 <h3 data-name>New York Importado (14 oz)</h3>
               </div>
-              <span class="menu-price" data-price>B/. 38</span>
+              <span class="menu-price">38</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="filete-pimienta-verde">
               <div>
                 <h3 data-name>Filete Pimienta Verde</h3>
               </div>
-              <span class="menu-price" data-price>B/. 22</span>
+              <span class="menu-price">22</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="pollo-con-champinones-frescos">
               <div>
                 <h3 data-name>Pollo con Champiñones Frescos</h3>
               </div>
-              <span class="menu-price" data-price>B/. 16</span>
+              <span class="menu-price">16</span>
             </article>
           </div>
         </section>
@@ -285,19 +282,19 @@
               <div>
                 <h3 data-name>Limón y Alcaparras</h3>
               </div>
-              <span class="menu-price" data-price>B/. 22</span>
+              <span class="menu-price">22</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="en-salsa-de-camarones">
               <div>
                 <h3 data-name>En Salsa de Camarones</h3>
               </div>
-              <span class="menu-price" data-price>B/. 23</span>
+              <span class="menu-price">23</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="salsa-de-maracuya">
               <div>
                 <h3 data-name>Salsa de Maracuyá</h3>
               </div>
-              <span class="menu-price" data-price>B/. 22</span>
+              <span class="menu-price">22</span>
             </article>
           </div>
         </section>
@@ -312,40 +309,40 @@
                 <h3 data-name>Paella Mixta</h3>
                 <p data-description>Por persona; mínimo 2 personas</p>
               </div>
-              <span class="menu-price" data-price>B/. 16</span>
+              <span class="menu-price">16</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="paella-cuatro-carnes">
               <div>
                 <h3 data-name>Paella Cuatro Carnes</h3>
                 <p data-description>Por persona; mínimo 2 personas</p>
               </div>
-              <span class="menu-price" data-price>B/. 16</span>
+              <span class="menu-price">16</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="paella-vegana">
               <div>
                 <h3 data-name>Paella Vegana</h3>
                 <p data-description>Por persona; mínimo 2 personas</p>
               </div>
-              <span class="menu-price" data-price>B/. 16</span>
+              <span class="menu-price">16</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="arroz-marinera">
               <div>
                 <h3 data-name>Arroz Marinera</h3>
                 <p data-description>Por persona; mínimo 2 personas</p>
               </div>
-              <span class="menu-price" data-price>B/. 16</span>
+              <span class="menu-price">16</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="arroz-con-mariscos">
               <div>
                 <h3 data-name>Arroz con Mariscos</h3>
               </div>
-              <span class="menu-price" data-price>B/. 16</span>
+              <span class="menu-price">16</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="risotto-siete-mares">
               <div>
                 <h3 data-name>Risotto Siete Mares</h3>
               </div>
-              <span class="menu-price" data-price>B/. 30</span>
+              <span class="menu-price">30</span>
             </article>
           </div>
         </section>
@@ -359,26 +356,26 @@
               <div>
                 <h3 data-name>Parrillada de Mariscos</h3>
               </div>
-              <span class="menu-price" data-price>B/. 39</span>
+              <span class="menu-price">39</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="spaghettini-oleo-con-mariscos">
               <div>
                 <h3 data-name>Spaghettini Oleo con Mariscos</h3>
               </div>
-              <span class="menu-price" data-price>B/. 22</span>
+              <span class="menu-price">22</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="fettuccine-con-langostinos">
               <div>
                 <h3 data-name>Fettuccine con Langostinos</h3>
                 <p data-description>En salsa blanca</p>
               </div>
-              <span class="menu-price" data-price>B/. 22</span>
+              <span class="menu-price">22</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="bacalao-a-la-portuguesa-o-vizcaina">
               <div>
                 <h3 data-name>Bacalao a la Portuguesa o Vizcaína</h3>
               </div>
-              <span class="menu-price" data-price>B/. 28</span>
+              <span class="menu-price">28</span>
             </article>
           </div>
         </section>
@@ -393,18 +390,18 @@
               <div>
                 <h3 data-name>A la Thermidor</h3>
               </div>
-              <span class="menu-price" data-price>B/. 39</span>
+              <span class="menu-price">39</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="a-la-plancha-2">
               <div>
                 <h3 data-name>A la Plancha</h3>
               </div>
-              <span class="menu-price" data-price>B/. 36</span>
+              <span class="menu-price">36</span>
             </article>
           </div>
         </section>
 
-        <section class="menu-category" data-menu-category data-category-id="los-siete-mares-centollo">
+        <section class="menu-category" id="los-siete-mares-centollo" data-menu-category data-category-id="los-siete-mares-centollo">
           <div class="category-heading">
             <h2 data-category-name>Centollo</h2>
             <span data-category-kicker>Los Siete Mares</span>
@@ -414,24 +411,24 @@
               <div>
                 <h3 data-name>Al Ajo</h3>
               </div>
-              <span class="menu-price" data-price>B/. 60</span>
+              <span class="menu-price">60</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="gratinado">
               <div>
                 <h3 data-name>Gratinado</h3>
               </div>
-              <span class="menu-price" data-price>B/. 60</span>
+              <span class="menu-price">60</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="centollo-natural">
               <div>
                 <h3 data-name>Centollo Natural</h3>
               </div>
-              <span class="menu-price" data-price>B/. 76</span>
+              <span class="menu-price">76</span>
             </article>
           </div>
         </section>
 
-        <section class="menu-category" data-menu-category data-category-id="los-siete-mares-langostinos">
+        <section class="menu-category" id="los-siete-mares-langostinos" data-menu-category data-category-id="los-siete-mares-langostinos">
           <div class="category-heading">
             <h2 data-category-name>Langostinos</h2>
             <span data-category-kicker>Los Siete Mares</span>
@@ -441,19 +438,19 @@
               <div>
                 <h3 data-name>A la Thermidor</h3>
               </div>
-              <span class="menu-price" data-price>B/. 25</span>
+              <span class="menu-price">25</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="al-ajillo-2">
               <div>
                 <h3 data-name>Al Ajillo</h3>
               </div>
-              <span class="menu-price" data-price>B/. 21</span>
+              <span class="menu-price">21</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="en-salsa-de-maracuya">
               <div>
                 <h3 data-name>En Salsa de Maracuyá</h3>
               </div>
-              <span class="menu-price" data-price>B/. 21</span>
+              <span class="menu-price">21</span>
             </article>
           </div>
         </section>
@@ -469,18 +466,18 @@
                 <h3 data-name>Sopa Siete Mares</h3>
                 <p data-description>Media orden / orden completa</p>
               </div>
-              <span class="menu-price" data-price>B/. 14 / B/. 19</span>
+              <span class="menu-price">14 / 19</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="crema-de-langosta">
               <div>
                 <h3 data-name>Crema de Langosta</h3>
               </div>
-              <span class="menu-price" data-price>B/. 11</span>
+              <span class="menu-price">11</span>
             </article>
           </div>
         </section>
 
-        <section class="menu-category" data-menu-category data-category-id="sopa-crema-y-ensalada-ensaladas">
+        <section class="menu-category" id="sopa-crema-y-ensalada-ensaladas" data-menu-category data-category-id="sopa-crema-y-ensalada-ensaladas">
           <div class="category-heading">
             <h2 data-category-name>Ensaladas</h2>
             <span data-category-kicker>Sopa Crema y Ensalada</span>
@@ -491,7 +488,7 @@
                 <h3 data-name>Ensalada del Día</h3>
                 <p data-description>Base de garbanzo con mix de lechugas, pepino persa, cebolla encurtida, aceitunas negras, pimientos rostizados, tomate cherry y vinagreta de miel y limón. Adicionales: pollo +4, salmón +6, camarones +8</p>
               </div>
-              <span class="menu-price" data-price>B/. 13</span>
+              <span class="menu-price">13</span>
             </article>
           </div>
         </section>
@@ -505,55 +502,55 @@
               <div>
                 <h3 data-name>Arroz Marinera</h3>
               </div>
-              <span class="menu-price" data-price>B/. 5</span>
+              <span class="menu-price">5</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="arroz-blanco">
               <div>
                 <h3 data-name>Arroz Blanco</h3>
               </div>
-              <span class="menu-price" data-price>B/. 3</span>
+              <span class="menu-price">3</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="concolon">
               <div>
                 <h3 data-name>Concolón</h3>
               </div>
-              <span class="menu-price" data-price>B/. 4</span>
+              <span class="menu-price">4</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="pure">
               <div>
                 <h3 data-name>Puré</h3>
               </div>
-              <span class="menu-price" data-price>B/. 3</span>
+              <span class="menu-price">3</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="papas-fritas">
               <div>
                 <h3 data-name>Papas Fritas</h3>
               </div>
-              <span class="menu-price" data-price>B/. 3</span>
+              <span class="menu-price">3</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="patacones">
               <div>
                 <h3 data-name>Patacones</h3>
               </div>
-              <span class="menu-price" data-price>B/. 3</span>
+              <span class="menu-price">3</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="yuca-frita">
               <div>
                 <h3 data-name>Yuca Frita</h3>
               </div>
-              <span class="menu-price" data-price>B/. 3</span>
+              <span class="menu-price">3</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="vegetales-salteados">
               <div>
                 <h3 data-name>Vegetales Salteados</h3>
               </div>
-              <span class="menu-price" data-price>B/. 4</span>
+              <span class="menu-price">4</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="spaghetti-aglio-e-olio">
               <div>
                 <h3 data-name>Spaghetti Aglio e Olio</h3>
               </div>
-              <span class="menu-price" data-price>B/. 4</span>
+              <span class="menu-price">4</span>
             </article>
           </div>
         </section>
@@ -571,63 +568,63 @@
                 <h3 data-name>Tres Leches</h3>
                 <p data-description>Con shot de Bailey&#x27;s +1</p>
               </div>
-              <span class="menu-price" data-price>B/. 7</span>
+              <span class="menu-price">7</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="parfait">
               <div>
                 <h3 data-name>Parfait</h3>
               </div>
-              <span class="menu-price" data-price>B/. 8</span>
+              <span class="menu-price">8</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="cheesecake">
               <div>
                 <h3 data-name>Cheesecake</h3>
               </div>
-              <span class="menu-price" data-price>B/. 7</span>
+              <span class="menu-price">7</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="pecan-pie">
               <div>
                 <h3 data-name>Pecan Pie</h3>
                 <p data-description>Con bola de helado +3</p>
               </div>
-              <span class="menu-price" data-price>B/. 7</span>
+              <span class="menu-price">7</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="pastel-de-limon">
               <div>
                 <h3 data-name>Pastel de Limón</h3>
               </div>
-              <span class="menu-price" data-price>B/. 7</span>
+              <span class="menu-price">7</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="pastel-de-manzana">
               <div>
                 <h3 data-name>Pastel de Manzana</h3>
                 <p data-description>Con bola de helado +3</p>
               </div>
-              <span class="menu-price" data-price>B/. 7</span>
+              <span class="menu-price">7</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="delicia-de-coco">
               <div>
                 <h3 data-name>Delicia de Coco</h3>
               </div>
-              <span class="menu-price" data-price>B/. 7</span>
+              <span class="menu-price">7</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="mousse-de-maracuya">
               <div>
                 <h3 data-name>Mousse de Maracuyá</h3>
               </div>
-              <span class="menu-price" data-price>B/. 7</span>
+              <span class="menu-price">7</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="flan">
               <div>
                 <h3 data-name>Flan</h3>
               </div>
-              <span class="menu-price" data-price>B/. 6</span>
+              <span class="menu-price">6</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="helado">
               <div>
                 <h3 data-name>Helado</h3>
               </div>
-              <span class="menu-price" data-price>B/. 3</span>
+              <span class="menu-price">3</span>
             </article>
           </div>
         </section>
@@ -641,44 +638,44 @@
               <div>
                 <h3 data-name>Espresso</h3>
               </div>
-              <span class="menu-price" data-price>B/. 3</span>
+              <span class="menu-price">3</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="macchiato">
               <div>
                 <h3 data-name>Macchiato</h3>
               </div>
-              <span class="menu-price" data-price>B/. 3.25</span>
+              <span class="menu-price">3.25</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="cortado">
               <div>
                 <h3 data-name>Cortado</h3>
               </div>
-              <span class="menu-price" data-price>B/. 3.25</span>
+              <span class="menu-price">3.25</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="capuchino">
               <div>
                 <h3 data-name>Capuchino</h3>
               </div>
-              <span class="menu-price" data-price>B/. 3.75</span>
+              <span class="menu-price">3.75</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="americano">
               <div>
                 <h3 data-name>Americano</h3>
               </div>
-              <span class="menu-price" data-price>B/. 3.25</span>
+              <span class="menu-price">3.25</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="leche-de-almendra">
               <div>
                 <h3 data-name>Leche de Almendra</h3>
                 <p data-description>Adicional para cualquier café</p>
               </div>
-              <span class="menu-price" data-price>+B/. 1</span>
+              <span class="menu-price">+1</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="carajillo-43">
               <div>
                 <h3 data-name>Carajillo 43</h3>
               </div>
-              <span class="menu-price" data-price>B/. 7</span>
+              <span class="menu-price">7</span>
             </article>
           </div>
         </section>
@@ -693,37 +690,37 @@
               <div>
                 <h3 data-name>Canela</h3>
               </div>
-              <span class="menu-price" data-price>B/. 2.5</span>
+              <span class="menu-price">2.5</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="manzanilla">
               <div>
                 <h3 data-name>Manzanilla</h3>
               </div>
-              <span class="menu-price" data-price>B/. 2.5</span>
+              <span class="menu-price">2.5</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="menta">
               <div>
                 <h3 data-name>Menta</h3>
               </div>
-              <span class="menu-price" data-price>B/. 2.5</span>
+              <span class="menu-price">2.5</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="negro">
               <div>
                 <h3 data-name>Negro</h3>
               </div>
-              <span class="menu-price" data-price>B/. 2.5</span>
+              <span class="menu-price">2.5</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="verde">
               <div>
                 <h3 data-name>Verde</h3>
               </div>
-              <span class="menu-price" data-price>B/. 2.5</span>
+              <span class="menu-price">2.5</span>
             </article>
             <article class="menu-item" data-menu-item data-item-id="jengibre">
               <div>
                 <h3 data-name>Jengibre</h3>
               </div>
-              <span class="menu-price" data-price>B/. 2.5</span>
+              <span class="menu-price">2.5</span>
             </article>
           </div>
         </section>
@@ -739,12 +736,12 @@
 
   <footer class="site-footer">
     <div class="container footer-grid">
-      <div class="footer-brand"><img src="/assets/images/logo-siete-mares.png" width="139" height="240" alt="Restaurante Siete Mares"><p>Sabores con historia,<br>mariscos con alma.</p></div>
-      <div><h3>Descubra</h3><a href="/carta/">Nuestra carta</a><a href="/nuestras-bebidas/">Nuestras bebidas</a><a href="/salones-para-eventos-en-panama/">Eventos</a><a href="https://restaurantesietemares.com/club-siete-mares/">Club Siete Mares</a></div>
+      <div class="footer-brand"><img src="/assets/images/logo-siete-mares-principal.svg" width="720" height="720" alt="Restaurante Siete Mares"><p>Sabores con historia,<br>mariscos con alma.</p></div>
+      <div><h3>Descubra</h3><a href="/carta/">Nuestra carta</a><a href="/nuestras-bebidas/">Nuestras bebidas</a><a href="/salones-para-eventos-en-panama/">Eventos</a><a href="/club-siete-mares/">Club Siete Mares</a><a href="/opina/">Opina</a></div>
       <div><h3>Contacto</h3><a href="tel:+5072640144">+507 264-0144</a><a href="https://wa.me/50766215905" target="_blank" rel="noopener">+507 6621-5905</a><a href="mailto:restaurantes@grupoherrero.com">restaurantes@grupoherrero.com</a></div>
       <div><h3>Horario</h3><p>Lun–Mié · 11:30–22:00<br>Jue–Sáb · 11:30–23:00<br>Dom · 11:30–21:00</p></div>
     </div>
-    <div class="container footer-bottom"><small>© <span data-year></span> Restaurante Siete Mares.</small><small>El Cangrejo · Ciudad de Panamá</small></div>
+    <div class="container footer-bottom"><small>© 2026 Restaurante Siete Mares.</small><small>El Cangrejo · Ciudad de Panamá</small></div>
   </footer>
   <a class="whatsapp-float" href="https://wa.me/50766215905" target="_blank" rel="noopener" aria-label="Escribir a Restaurante Siete Mares por WhatsApp">WhatsApp</a>
   <script src="/assets/site.js" defer></script>
