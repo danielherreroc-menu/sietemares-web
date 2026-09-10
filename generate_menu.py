@@ -3,23 +3,29 @@
 Sync engine: 4 Google Sheets (menú de Siete Mares) -> carta/index.html y
 nuestras-bebidas/index.html
 
-Pensado para correr dentro de GitHub Actions, en un checkout del repo
+Corre dentro de GitHub Actions, en un checkout del repo
 danielherreroc-menu/sietemares-web. Lee las 4 hojas en vivo (via Sheets API,
-con una service account de solo lectura), regenera los 7 bloques marcados
+con una service account de solo lectura), regenera los 5 bloques marcados
 con comentarios <!-- MENU-SYNC:... --> / <!-- /MENU-SYNC:... --> en ambas
 páginas, y preserva byte a byte todo lo demás (head, header, footer, hero,
-menu-switcher, JSON-LD, etc.).
+menu-switcher, category-tabs, JSON-LD, etc.).
+
+Las pestañas de navegación (category-tabs, menu-switcher) NO se regeneran:
+sus etiquetas están escritas a mano y no siempre coinciden literalmente con
+el nombre del grupo en la hoja (p. ej. "Licores" en vez de "Nuestro Bar",
+"Vinos blancos" en minúscula vs "Vinos Blancos" en la hoja). Si se agrega o
+quita una categoría completa alguna vez, hay que ajustar esa nav a mano en
+el HTML -- renombrar/reordenar/re-precificar platos dentro de categorías
+existentes sí sincroniza solo.
 
 Zonas que este script regenera:
-  dist/carta/index.html
-    - TABS-CARTA        (pestañas de categorías de comida)
-    - CARTA-COMIDA       (las 9 categorías de menusietemares)
-    - CARTA-POSTRES      (Postres, Café y Té de menupostressietemares)
-  dist/nuestras-bebidas/index.html
-    - TABS-BEBIDAS       (pestañas combinadas de vinos + bar)
-    - BEBIDAS-VINOS       (menuvinossietemares completo)
-    - BEBIDAS-BAR         (Cócteles + Nuestro Bar de menubarsietemares)
-    - BEBIDAS-DIGESTIVOS  (Digestivos y Brandy y Cognac de menupostressietemares)
+  carta/index.html
+    - CARTA-COMIDA        (las 9 categorías de menusietemares)
+    - CARTA-POSTRES       (Postres, Café y Té de menupostressietemares)
+  nuestras-bebidas/index.html
+    - BEBIDAS-BAR          (Cócteles + Nuestro Bar de menubarsietemares)
+    - BEBIDAS-DIGESTIVOS   (Digestivos y Brandy y Cognac de menupostressietemares)
+    - BEBIDAS-VINOS        (menuvinossietemares completo)
 
 Variables de entorno esperadas:
   GOOGLE_SERVICE_ACCOUNT_JSON  - contenido completo del JSON de la service account
@@ -66,7 +72,7 @@ POSTRES_GRUPOS = {"Postres", "Café", "Té"}
 DIGESTIVOS_GRUPOS = {"Digestivos", "Brandy y Cognac"}
 
 
-# --- Helpers de texto/HTML (idénticos a build_menu_html.py) ----------------
+# --- Helpers de texto/HTML ---------------------------------------------------
 
 def slugify(s):
     s = unicodedata.normalize("NFKD", s).encode("ascii", "ignore").decode("ascii")
@@ -80,15 +86,15 @@ def esc(s):
 
 
 def fmt_price(p):
+    """Precios en bruto, sin prefijo de moneda (ver MENU-INTEGRATION.md):
+    '16' -> '16'; '8/16' -> '8 / 16'; '+1' -> '+1' (queda igual, no tiene '/')."""
     p = (p or "").strip()
     if not p:
         return None
-    if p.startswith("+"):
-        return f"+B/. {p[1:]}"
     if "/" in p:
         parts = [x.strip() for x in p.split("/")]
-        return "B/. " + " / B/. ".join(parts)
-    return f"B/. {p}"
+        return " / ".join(parts)
+    return p
 
 
 # --- Lectura de las hojas ----------------------------------------------------
@@ -136,8 +142,7 @@ def fetch_all_sheets():
     return {key: fetch_sheet_rows(key, service) for key in SHEETS}
 
 
-# --- Agrupado y render (misma lógica que build_menu_html.py, con el fix ----
-#     de que el href de cada pestaña usa siempre el id real de la sección) --
+# --- Agrupado y render --------------------------------------------------------
 
 def group_rows(rows):
     groups = OrderedDict()
@@ -165,7 +170,7 @@ def render_item(row, seen_ids):
         out.append(f"                <p data-description>{esc(desc)}</p>")
     out.append("              </div>")
     if precio:
-        out.append(f'              <span class="menu-price" data-price>{esc(precio)}</span>')
+        out.append(f'              <span class="menu-price">{esc(precio)}</span>')
     out.append("            </article>")
     return "\n".join(out)
 
@@ -193,49 +198,41 @@ def render_category(heading, kicker, rows, cat_id, seen_ids, seen_cat_ids, html_
 
 
 def build_block(rows, anchor_id=None):
-    """Devuelve (html_block, tabs). tabs = [(etiqueta, href_id), ...] donde
-    href_id es SIEMPRE el id real renderizado en la sección correspondiente
-    (nunca el data-category-id), para que el enlace de la pestaña siempre
-    tenga un ancla válida."""
+    """Devuelve el HTML del bloque de secciones. Reglas de 'id' verificadas
+    byte a byte contra el sitio aprobado por Daniel:
+      - la primera sub-sección del PRIMER grupo del bloque -> anchor_id
+      - la primera sub-sección de CUALQUIER OTRO grupo -> slug del grupo
+      - cualquier sub-sección siguiente dentro de un grupo -> slug grupo+seccion
+      - grupos de una sola sección (seccion == grupo o no) siguen la misma regla,
+        tratados como 'sub-sección única' de su propio grupo."""
     groups = group_rows(rows)
     seen_ids = set()
     seen_cat_ids = set()
     sections = []
-    tabs = []
     first = True
     for grupo, grows in groups.items():
         seccion_vals = list(dict.fromkeys(r["seccion"].strip() for r in grows))
         grupo_slug = slugify(grupo)
-        html_id_for_tab = anchor_id if (first and anchor_id) else grupo_slug
 
-        if len(seccion_vals) == 1 and seccion_vals[0] == grupo:
-            block = render_category(grupo, None, grows, grupo_slug, seen_ids, seen_cat_ids, html_id=html_id_for_tab)
+        if len(seccion_vals) == 1:
+            html_id = anchor_id if first else grupo_slug
+            kicker = None if seccion_vals[0] == grupo else seccion_vals[0]
+            block = render_category(grupo, kicker, grows, grupo_slug, seen_ids, seen_cat_ids, html_id=html_id)
             sections.append(block)
-            tabs.append((grupo, html_id_for_tab))
-        elif len(seccion_vals) == 1:
-            block = render_category(grupo, seccion_vals[0], grows, grupo_slug, seen_ids, seen_cat_ids, html_id=html_id_for_tab)
-            sections.append(block)
-            tabs.append((grupo, html_id_for_tab))
         else:
             for i, sec in enumerate(seccion_vals):
                 sub_rows = [r for r in grows if r["seccion"].strip() == sec]
                 cat_slug = slugify(f"{grupo}-{sec}")
-                hid = html_id_for_tab if i == 0 else None
+                if first and i == 0:
+                    hid = anchor_id
+                elif i == 0:
+                    hid = grupo_slug
+                else:
+                    hid = cat_slug
                 block = render_category(sec, grupo, sub_rows, cat_slug, seen_ids, seen_cat_ids, html_id=hid)
                 sections.append(block)
-                if i == 0:
-                    tabs.append((grupo, hid))
         first = False
-    return "\n\n".join(sections), tabs
-
-
-def render_tabs(tabs, aria_label):
-    out = [f'        <nav class="category-tabs" aria-label="{esc(aria_label)}">']
-    for i, (label, slug) in enumerate(tabs):
-        cur = ' aria-current="true"' if i == 0 else ""
-        out.append(f'          <a href="#{slug}"{cur}>{esc(label)}</a>')
-    out.append("        </nav>")
-    return "\n".join(out)
+    return "\n\n".join(sections)
 
 
 def replace_marker(content, marker, new_inner):
@@ -275,30 +272,25 @@ def main():
         print("ERROR: vinos o bar salieron vacíos; no se toca ningún HTML", file=sys.stderr)
         sys.exit(1)
 
-    comida_html, comida_tabs = build_block(data["carta"], anchor_id="carta-principal")
-    postres_html, _ = build_block(postres_rows, anchor_id="postres")
-    vinos_html, vinos_tabs = build_block(data["vinos"], anchor_id="vinos")
-    bar_html, bar_tabs = build_block(data["bar"], anchor_id="bar")
-    digestivos_html, _ = build_block(digestivos_rows, anchor_id="digestivos")
-
-    carta_tabs_html = render_tabs(comida_tabs, "Categorías de la carta")
-    bebidas_tabs_html = render_tabs(vinos_tabs + bar_tabs, "Categorías de bebidas")
+    comida_html = build_block(data["carta"], anchor_id="carta-principal")
+    postres_html = build_block(postres_rows, anchor_id="postres")
+    bar_html = build_block(data["bar"], anchor_id="licores")
+    digestivos_html = build_block(digestivos_rows, anchor_id="licores-digestivos")
+    vinos_html = build_block(data["vinos"], anchor_id="vinos")
 
     changed = False
 
     with open(CARTA_PATH, encoding="utf-8") as f:
         carta_content = f.read()
-    carta_content = replace_marker(carta_content, "TABS-CARTA", carta_tabs_html)
     carta_content = replace_marker(carta_content, "CARTA-COMIDA", comida_html)
     carta_content = replace_marker(carta_content, "CARTA-POSTRES", postres_html)
     changed |= write_if_changed(CARTA_PATH, carta_content)
 
     with open(BEBIDAS_PATH, encoding="utf-8") as f:
         bebidas_content = f.read()
-    bebidas_content = replace_marker(bebidas_content, "TABS-BEBIDAS", bebidas_tabs_html)
-    bebidas_content = replace_marker(bebidas_content, "BEBIDAS-VINOS", vinos_html)
     bebidas_content = replace_marker(bebidas_content, "BEBIDAS-BAR", bar_html)
     bebidas_content = replace_marker(bebidas_content, "BEBIDAS-DIGESTIVOS", digestivos_html)
+    bebidas_content = replace_marker(bebidas_content, "BEBIDAS-VINOS", vinos_html)
     changed |= write_if_changed(BEBIDAS_PATH, bebidas_content)
 
     gh_output = os.environ.get("GITHUB_OUTPUT")
