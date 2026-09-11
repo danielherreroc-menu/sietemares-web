@@ -127,6 +127,11 @@
 .csm #sib-container .sib-form-block__button{width:100%!important;justify-content:center!important;text-align:center!important;background:var(--csm-naranja)!important;font-family:var(--csm-txt)!important;font-size:13.5px!important;font-weight:500!important;letter-spacing:.16em!important;text-transform:uppercase!important;color:#fff!important;border-radius:0!important;padding:18px 20px!important;border:0!important;cursor:pointer;transition:background .2s!important}
 .csm #sib-container .sib-form-block__button:hover{background:#d4661a!important}
 .csm #sib-container a{color:var(--csm-azul)!important}
+/* Bug del propio widget de Brevo: su hoja de estilos deja el <select> de mes/año
+   del calendario heredando font-size:0 (dos reglas suyas en conflicto), por eso
+   no se ve el mes. El calendario se inserta directo en <body> (fuera de .csm),
+   asi que la regla va sin ese prefijo. */
+.pika-select{background:#fff!important;border:1px solid #cfc9bd!important;border-radius:0!important;color:#33312e!important;cursor:pointer!important;font-family:Helvetica,Arial,sans-serif!important;font-size:14px!important;padding:4px 8px!important}
 @media(max-width:900px){
   .csm .csm-split{grid-template-columns:minmax(0,1fr);gap:44px}
 }
