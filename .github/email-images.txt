@@ -1,0 +1,21 @@
+# Imagenes que usan los correos de los clubes de cumpleanos (Brevo).
+# Una URL por linea. Si agregas una imagen nueva a un correo, agregala aqui.
+# --- Club Siete Mares ---
+https://img.mailinblue.com/11607110/images/content_library/original/6a5cf4beefcbde11d08b4b09.jpg
+https://img.mailinblue.com/11607110/images/content_library/original/6a84e25239427732c236c06a.jpg
+https://restaurantesietemares.com/assets/images/club-email/sm-hero-pastel-velas.jpg
+https://restaurantesietemares.com/assets/images/club-email/sm-thumb-cumpleanero.jpg
+https://restaurantesietemares.com/assets/images/club-email/sm-thumb-acompanantes.jpg
+https://restaurantesietemares.com/assets/images/club-email/sm-thumb-celebracion.jpg
+# --- Complices de Siempre (Le Bistrot) ---
+https://restaurantelebistrot.com/assets/images/club-email/lb-logo.png
+https://restaurantelebistrot.com/assets/images/club-email/lb-hero-mesa.jpg
+https://restaurantelebistrot.com/assets/images/club-email/lb-plato.jpg
+# --- Club Ohana Waikiki ---
+https://restaurantewaikiki.com/assets/images/club-email/wk-logo.png
+https://restaurantewaikiki.com/assets/images/club-email/wk-hero.jpg
+https://restaurantewaikiki.com/assets/images/club-email/wk-letrero.jpg
+# --- Club Leyendas de Bronco ---
+https://restaurantebronco.com/assets/images/club-email/br-logo.png
+https://restaurantebronco.com/assets/images/club-email/br-hero-mesa.jpg
+https://restaurantebronco.com/assets/images/club-email/br-coco.jpg
