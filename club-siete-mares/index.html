@@ -1121,7 +1121,7 @@
     if(!dt)msg='Escriba su fecha de nacimiento en formato dd-mm-aaaa, por ejemplo 15-03-1985.';
     else if(dt>today)msg='La fecha de nacimiento no puede ser una fecha futura. Por favor, rev\u00edsela.';
     else if(dt.getFullYear()<1900)msg='Por favor, revise el a\u00f1o de su fecha de nacimiento.';
-    if(msg){e.preventDefault();e.stopImmediatePropagation();showErr(i,msg);i.focus();}else{showErr(i,'');}
+    if(msg){e.preventDefault();e.stopImmediatePropagation();showErr(i,msg);if(i.blur)i.blur();i.scrollIntoView({block:'center',behavior:'smooth'});}else{showErr(i,'');}
   },true);
   document.addEventListener('input',function(e){if(e.target&&e.target.id==='BIRTHDAY')showErr(e.target,'');});
 })();
