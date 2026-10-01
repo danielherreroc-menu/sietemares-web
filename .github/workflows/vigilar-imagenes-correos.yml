@@ -1,0 +1,39 @@
+name: Vigilar imagenes de los correos
+
+# Revisa cada lunes temprano que todas las imagenes de los correos de los
+# clubes de cumpleanos (Brevo) carguen. Si alguna falla, este workflow
+# termina en rojo y GitHub te manda un correo de aviso.
+# Lista de URLs: .github/email-images.txt
+on:
+  schedule:
+    - cron: "17 10 * * 1"   # lunes 5:17 a.m. hora de Panama
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  revisar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Revisar que cada imagen cargue
+        run: |
+          fallas=0
+          while IFS= read -r url; do
+            case "$url" in ''|\#*) continue;; esac
+            res=$(curl -sS -L -o /dev/null --max-time 30 -A "Mozilla/5.0 (vigilancia correos Grupo Herrero)" \
+                  -w "%{http_code} %{content_type}" "$url" || echo "000 error")
+            code=${res%% *}; ctype=${res#* }
+            if [ "$code" = "200" ] && [[ "$ctype" == image/* ]]; then
+              echo "OK    $code $url"
+            else
+              echo "::error::Imagen rota ($code $ctype): $url"
+              fallas=$((fallas+1))
+            fi
+          done < .github/email-images.txt
+          if [ "$fallas" -gt 0 ]; then
+            echo "::error::$fallas imagen(es) de los correos no cargan. Revisar antes de que les lleguen a clientes."
+            exit 1
+          fi
+          echo "Todas las imagenes de los correos cargan bien."
