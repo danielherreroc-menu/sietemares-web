@@ -122,7 +122,7 @@
           <path d="M256 8C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 464c-118.664 0-216-96.055-216-216 0-118.663 96.055-216 216-216 118.664 0 216 96.055 216 216 0 118.663-96.055 216-216 216zm141.63-274.961L217.15 376.071c-4.705 4.667-12.303 4.637-16.97-.068l-85.878-86.572c-4.667-4.705-4.637-12.303.068-16.97l8.52-8.451c4.705-4.667 12.303-4.637 16.97.068l68.976 69.533 163.441-162.13c4.705-4.667 12.303-4.637 16.97.068l8.451 8.52c4.668 4.705 4.637 12.303-.068 16.97z" />
         </svg>
         <span class="sib-form-message-panel__inner-text">
-                  &#161;Su inscripci&#243;n al Club Siete Mares fue exitosa!
+                  &#161;Bienvenido al Club Siete Mares! Le acabamos de enviar un correo de bienvenida; por ese medio manejaremos toda la comunicaci&#243;n del Club. Si no lo ve en su bandeja de entrada, revise su carpeta de correo no deseado (spam) y mu&#233;valo a su bandeja principal para no perderse nada.
                                      </span>
       </div>
     </div>
@@ -1108,6 +1108,23 @@
     }
   }
 }
+</script>
+<script>
+/* Club Siete Mares: validación de fecha de nacimiento (no permite fechas futuras) */
+(function(){
+  function parse(v){var m=/^(\d{2})-(\d{2})-(\d{4})$/.exec((v||'').trim());if(!m)return null;var d=+m[1],mo=+m[2],y=+m[3];var dt=new Date(y,mo-1,d);if(dt.getFullYear()!==y||dt.getMonth()!==mo-1||dt.getDate()!==d)return null;return dt;}
+  function showErr(input,msg){var box=input.closest('.form__entry');var l=box&&box.querySelector('.entry__error');if(l){l.textContent=msg;l.style.display=msg?'block':'none';l.style.padding=msg?'8px 12px':'';l.style.marginTop=msg?'6px':'';}}
+  window.addEventListener('submit',function(e){
+    var f=e.target;if(!f||f.id!=='sib-form')return;
+    var i=f.querySelector('#BIRTHDAY');if(!i)return;
+    var dt=parse(i.value),today=new Date();today.setHours(0,0,0,0);var msg='';
+    if(!dt)msg='Escriba su fecha de nacimiento en formato dd-mm-aaaa, por ejemplo 15-03-1985.';
+    else if(dt>today)msg='La fecha de nacimiento no puede ser una fecha futura. Por favor, rev\u00edsela.';
+    else if(dt.getFullYear()<1900)msg='Por favor, revise el a\u00f1o de su fecha de nacimiento.';
+    if(msg){e.preventDefault();e.stopImmediatePropagation();showErr(i,msg);i.focus();}else{showErr(i,'');}
+  },true);
+  document.addEventListener('input',function(e){if(e.target&&e.target.id==='BIRTHDAY')showErr(e.target,'');});
+})();
 </script>
 </body>
 </html>
