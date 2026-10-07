@@ -20,7 +20,11 @@
   <link rel="stylesheet" href="/assets/style.css">
   <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
   <link rel="stylesheet" href="/assets/club.css">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-S4H9646MKD"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S4H9646MKD');</script></head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-S4H9646MKD"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-S4H9646MKD');</script><style>
+.pika-label{position:relative;display:inline-block;overflow:hidden;width:auto;font-size:1rem;font-weight:600;line-height:1.2;padding:5px 6px}
+.pika-select{position:absolute;top:0;left:0;width:100%;height:100%;min-height:0;margin:0;padding:0;border:0;background:transparent;opacity:0;cursor:pointer}
+</style>
+</head>
 <body>
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
@@ -1110,21 +1114,77 @@
 }
 </script>
 <script>
-/* Club Siete Mares: validación de fecha de nacimiento (no permite fechas futuras) */
-(function(){
-  function parse(v){var m=/^(\d{2})-(\d{2})-(\d{4})$/.exec((v||'').trim());if(!m)return null;var d=+m[1],mo=+m[2],y=+m[3];var dt=new Date(y,mo-1,d);if(dt.getFullYear()!==y||dt.getMonth()!==mo-1||dt.getDate()!==d)return null;return dt;}
-  function showErr(input,msg){var box=input.closest('.form__entry');var l=box&&box.querySelector('.entry__error');if(l){l.textContent=msg;l.style.display=msg?'block':'none';l.style.padding=msg?'8px 12px':'';l.style.marginTop=msg?'6px':'';}}
-  window.addEventListener('submit',function(e){
-    var f=e.target;if(!f||f.id!=='sib-form')return;
-    var i=f.querySelector('#BIRTHDAY');if(!i)return;
-    var dt=parse(i.value),today=new Date();today.setHours(0,0,0,0);var msg='';
-    if(!dt)msg='Escriba su fecha de nacimiento en formato dd-mm-aaaa, por ejemplo 15-03-1985.';
-    else if(dt>today)msg='La fecha de nacimiento no puede ser una fecha futura. Por favor, rev\u00edsela.';
-    else if(dt.getFullYear()<1900)msg='Por favor, revise el a\u00f1o de su fecha de nacimiento.';
-    if(msg){e.preventDefault();e.stopImmediatePropagation();showErr(i,msg);if(i.blur)i.blur();i.scrollIntoView({block:'center',behavior:'smooth'});}else{showErr(i,'');}
-  },true);
-  document.addEventListener('input',function(e){if(e.target&&e.target.id==='BIRTHDAY')showErr(e.target,'');});
-})();
-</script>
+  /* Club Siete Mares: fecha de nacimiento — sin fechas futuras ni del año en curso */
+  (function(){
+    var MIN_YEAR = 1900;
+    function maxYear(){ return new Date().getFullYear() - 1; }
+    function parse(v){
+      var m = /^(\d{2})-(\d{2})-(\d{4})$/.exec((v||'').trim());
+      if(!m) return null;
+      var d = +m[1], mo = +m[2], y = +m[3];
+      var dt = new Date(y, mo-1, d);
+      if(dt.getFullYear()!==y || dt.getMonth()!==mo-1 || dt.getDate()!==d) return null;
+      return dt;
+    }
+    function showErr(input, msg){
+      var box = input.closest('.form__entry');
+      var l = box && box.querySelector('.entry__error');
+      if(!l) return;
+      l.textContent = msg;
+      l.style.display = msg ? 'block' : 'none';
+      l.style.padding = msg ? '8px 12px' : '';
+      l.style.marginTop = msg ? '6px' : '';
+    }
+    var busy = false;
+    function prune(){
+      if(busy) return;
+      var sel = document.querySelector('.pika-select-year');
+      if(!sel) return;
+      var top = maxYear();
+      Array.prototype.slice.call(sel.options).forEach(function(o){
+        var y = parseInt(o.value, 10);
+        if(y > top || y < MIN_YEAR) o.remove();
+      });
+      var lab = sel.parentElement;
+      if(!lab) return;
+      var shown = parseInt([].filter.call(lab.childNodes, function(c){ return c.nodeType === 3; })
+                             .map(function(c){ return c.textContent.trim(); }).join(''), 10);
+      if(shown > top){
+        busy = true;
+        sel.value = String(top);
+        sel.dispatchEvent(new Event('change', {bubbles:true}));
+        setTimeout(function(){ busy = false; prune(); }, 400);
+      }
+    }
+    new MutationObserver(function(){ prune(); }).observe(document.documentElement, {childList:true, subtree:true});
+    document.addEventListener('focusin', function(e){ if(e.target && e.target.id==='BIRTHDAY') setTimeout(prune, 60); });
+    document.addEventListener('click', function(e){ if(e.target && e.target.closest && e.target.closest('.pika-single')) setTimeout(prune, 60); }, true);
+
+    window.addEventListener('submit', function(e){
+      var f = e.target; if(!f || f.id!=='sib-form') return;
+      var i = f.querySelector('#BIRTHDAY'); if(!i) return;
+      var dt = parse(i.value), hoy = new Date(); hoy.setHours(0,0,0,0);
+      var msg = '';
+      if(!dt){
+        msg = 'Escriba su fecha de nacimiento en formato dd-mm-aaaa, por ejemplo 15-03-1985.';
+      } else if(dt > hoy){
+        msg = 'La fecha de nacimiento no puede ser una fecha futura. Por favor, revísela.';
+      } else if(dt.getFullYear() > maxYear()){
+        msg = 'La fecha de nacimiento debe ser de un año anterior a ' + new Date().getFullYear() + '.';
+      } else if(dt.getFullYear() < MIN_YEAR){
+        msg = 'Escriba un año de nacimiento válido, a partir de ' + MIN_YEAR + '.';
+      }
+      if(msg){
+        e.preventDefault(); e.stopPropagation(); e.stopImmediatePropagation();
+        showErr(i, msg);
+        if(i.blur) i.blur();
+        i.scrollIntoView({block:'center', behavior:'smooth'});
+      } else {
+        showErr(i, '');
+      }
+    }, true);
+    document.addEventListener('input', function(e){ if(e.target && e.target.id==='BIRTHDAY') showErr(e.target, ''); });
+  })();
+  </script>
 </body>
 </html>
