@@ -19,3 +19,22 @@
 # aquí cualquier página demo/vieja que Google todavía tenga indexada y que
 # no está listada arriba. Este archivo cubre solo los rastros genéricos de
 # WordPress más el único redirect que ya existía en el .htaccess.
+
+
+# Auditoria real de Search Console (23-oct-2026): URLs del WordPress viejo
+# que Google todavia rastrea y que SI tienen equivalente en el sitio nuevo.
+/2026/04/22/paella-en-panama-preparada-al-momento/   /paella-en-panama/                 301
+/2026/04/30/restaurante-para-eventos-en-panama/      /salones-para-eventos-en-panama/   301
+/2026/04/30/restaurante-de-mariscos-en-el-cangrejo-panama/   /                          301
+/2026/04/29/restaurante-de-mariscos-en-panama-con-tradicion-desde-1978/   /             301
+/2026/04/30/preguntas-frecuentes/                    /                                  301
+/location/                                           /ubicacion-siete-mares/            301
+
+# Resto de rastros del WordPress viejo sin equivalente (blog, fichas de plato,
+# busqueda interna, API). Se mandan a la portada en vez de dejarlos en 404.
+# OJO: Cloudflare Pages ignora el codigo 410 en este archivo, solo acepta 3xx.
+/2026/*                                              /                                  301
+/siete-mares-blog/*                                  /                                  301
+/marisco/*                                           /                                  301
+/search/*                                            /                                  301
+/wp-json/*                                           /                                  301
