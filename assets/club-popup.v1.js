@@ -59,6 +59,7 @@ window.__GH_CLUB_POPUP__ = {
   "eMenor": "El Club es solo para mayores de 18 años.",
   "eTerminos": "Para inscribirse debe aceptar los términos y condiciones.",
   "eGeneral": "No se pudo guardar su inscripción. Inténtelo nuevamente.",
+  "eTelDup": "Este número de WhatsApp ya está inscrito en el Club con otro correo. Si ya es miembro, no necesita inscribirse de nuevo.",
   "eyebrow": "Club Siete Mares · Inscripción gratuita",
   "titulo": "Su cumpleaños no dura un día. Con nosotros dura todo el mes.",
   "beneficios": [
@@ -318,13 +319,15 @@ window.__GH_CLUB_POPUP__ = {
           ov.querySelector('.ghp-cerrar').focus();
           evento('lead');
         } else {
-          var m2 = t.eGeneral;
-          if (j && j.errors) { for (var kk in j.errors) { if (j.errors[kk]) { m2 = t.eGeneral; break; } } }
-          throw new Error(m2);
+          var m2 = t.eGeneral, er = (j && j.errors) || {};
+          if (er.SMS) { m2 = /vinculad|existe|exist/i.test(er.SMS) ? t.eTelDup : t.eWhatsapp; q('ghp-w').classList.add('err'); }
+          else if (er.EMAIL) { m2 = t.eCorreo; q('ghp-e').classList.add('err'); }
+          else if (er.BIRTHDAY) { m2 = t.eFecha; }
+          throw { mensaje: m2 };
         }
       })
-      .catch(function () {
-        msg.textContent = t.eGeneral;
+      .catch(function (err) {
+        msg.textContent = (err && err.mensaje) || t.eGeneral;
         btn.disabled = false; btn.textContent = t.boton;
       });
   }
