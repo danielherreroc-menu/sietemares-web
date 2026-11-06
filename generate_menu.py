@@ -41,6 +41,8 @@ from collections import OrderedDict
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
 
+from menu_schema import apply_menu_schema
+
 # --- Las 4 hojas fuente -----------------------------------------------------
 
 SHEETS = {
@@ -284,6 +286,13 @@ def main():
         carta_content = f.read()
     carta_content = replace_marker(carta_content, "CARTA-COMIDA", comida_html)
     carta_content = replace_marker(carta_content, "CARTA-POSTRES", postres_html)
+    carta_content = apply_menu_schema(
+        carta_content,
+        menu_id="https://restaurantesietemares.com/carta/#menu",
+        name="Carta de Restaurante Siete Mares",
+        url="https://restaurantesietemares.com/carta/",
+        provider_id="https://restaurantesietemares.com/#restaurant",
+    )
     changed |= write_if_changed(CARTA_PATH, carta_content)
 
     with open(BEBIDAS_PATH, encoding="utf-8") as f:
@@ -291,6 +300,13 @@ def main():
     bebidas_content = replace_marker(bebidas_content, "BEBIDAS-BAR", bar_html)
     bebidas_content = replace_marker(bebidas_content, "BEBIDAS-DIGESTIVOS", digestivos_html)
     bebidas_content = replace_marker(bebidas_content, "BEBIDAS-VINOS", vinos_html)
+    bebidas_content = apply_menu_schema(
+        bebidas_content,
+        menu_id="https://restaurantesietemares.com/nuestras-bebidas/#menu-bebidas",
+        name="Carta de bebidas de Restaurante Siete Mares",
+        url="https://restaurantesietemares.com/nuestras-bebidas/",
+        provider_id="https://restaurantesietemares.com/#restaurant",
+    )
     changed |= write_if_changed(BEBIDAS_PATH, bebidas_content)
 
     gh_output = os.environ.get("GITHUB_OUTPUT")
