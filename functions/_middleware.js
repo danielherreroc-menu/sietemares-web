@@ -35,6 +35,15 @@ class InjectBody {
   }
 }
 
+// Enlace discreto a la bolsa de trabajo del grupo, al final del pie de pagina de todas las paginas.
+const JOBS_LINK = '<div class="gh-jobs" style="text-align:center;font-size:.82rem;opacity:.8;padding:14px 16px 6px"><a href="https://empleos.grupoherrero.com/" style="color:inherit;text-decoration:underline">¿Desea formar parte de nuestro equipo? Trabaje con nosotros</a></div>';
+
+class InjectJobs {
+  element(element) {
+    element.append(JOBS_LINK, { html: true });
+  }
+}
+
 export async function onRequest(context) {
   const response = await context.next();
 
@@ -61,7 +70,7 @@ export async function onRequest(context) {
 
     return new HTMLRewriter()
       .on('head', new InjectHead())
-      .on('body', new InjectBody(isClub))
+      .on('footer.site-footer', new InjectJobs()).on('body', new InjectBody(isClub))
       .transform(out);
   } catch (err) {
     // Si algo falla, se sirve la respuesta original sin tocar: el sitio nunca se cae por esto.
