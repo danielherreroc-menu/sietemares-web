@@ -5,6 +5,8 @@
 /feed/*                  /                                301
 /comments/feed/*         /                                301
 /author/*                /                                301
+/category/eventos/*      /salones-para-eventos-en-panama/ 301
+/category/mariscos/*     /carta/                          301
 /category/*              /                                301
 /tag/*                   /                                301
 /sitemap_index.xml       /sitemap.xml                     301
@@ -35,6 +37,6 @@
 # OJO: Cloudflare Pages ignora el codigo 410 en este archivo, solo acepta 3xx.
 /2026/*                                              /                                  301
 /siete-mares-blog/*                                  /                                  301
-/marisco/*                                           /                                  301
+/marisco/*                                           /carta/                            301
 /search/*                                            /                                  301
 /wp-json/*                                           /                                  301
