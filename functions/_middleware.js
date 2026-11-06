@@ -133,6 +133,7 @@ function ghRevHtml(data, slug, usted, wrap) {
     .filter(r => r.restaurante === slug && String(r.mostrar).toUpperCase() === 'SI' && r.texto)
     .sort((x, y) => (Number(x.orden) || 999) - (Number(y.orden) || 999))
     .slice(0, GH_REV_MAX);
+  if (list.length > 3 && list.length < 6) list.length = 3; // filas completas de 3
   const total = Number(String(sum.total).replace(/[^0-9]/g, '')) || 0;
   const avg = String(sum.promedio || '').replace(',', '.');
   const cta = usted ? '¿Ya nos visitó? Déjenos su reseña' : '¿Ya nos visitaste? Déjanos tu reseña';
