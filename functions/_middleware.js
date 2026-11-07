@@ -184,7 +184,7 @@ export async function onRequest(context) {
 }
 
 // Enlaces que se agregan al pie de todas las páginas
-const GH_LINKS = [{"find":"href=\"/paella-en-panama/\"","add":"<a href=\"/centollo-en-panama/\">Centollo y langosta</a>","skip":"href=\"/centollo-en-panama/\""}];
+const GH_LINKS = [{"find":"href=\"/nuestras-bebidas/\"","add":"<a href=\"/paella-en-panama/\">Paella en Panamá</a>","skip":"href=\"/paella-en-panama/\""},{"find":"href=\"/paella-en-panama/\"","add":"<a href=\"/centollo-en-panama/\">Centollo y langosta</a>","skip":"href=\"/centollo-en-panama/\""},{"find":"href=\"/salones-para-eventos-en-panama/\"","add":"<a href=\"/ubicacion-siete-mares/\">Ubicación</a>","skip":"href=\"/ubicacion-siete-mares/\""}];
 
 // ---- Enlaces extra en el pie de página (ayudan a que Google encuentre las páginas) ----
 // Cada regla: busca el enlace "find" dentro del <footer class="site-footer"> y agrega "add" después
