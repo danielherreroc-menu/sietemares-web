@@ -16,7 +16,10 @@ const PIXEL_NOSCRIPT = `<noscript><img height="1" width="1" style="display:none"
 const LEAD_SCRIPT = `<script>(function(){var fired=false;function visible(el){if(!el)return false;var cs=window.getComputedStyle(el);return cs.display!=='none'&&cs.visibility!=='hidden'&&el.offsetParent!==null}function check(){if(fired)return;if(!visible(document.getElementById('success-message')))return;fired=true;if(typeof window.fbq==='function'){fbq('track','Lead',{content_name:'Club Siete Mares'})}}try{new MutationObserver(check).observe(document.documentElement,{attributes:true,childList:true,subtree:true,attributeFilter:['style','class']});document.addEventListener('submit',function(){setTimeout(check,1500);setTimeout(check,4000)},true);check()}catch(e){}})()</script>`;
 
 // Pop-up de inscripcion al Club (reglas en /assets/club-popup.v1.js). Se carga diferido en todas las paginas.
-const POPUP_SCRIPT = '<script src="/assets/club-popup.v1.js" defer></script>';
+// Hasta el 7 de enero de 2027 sale el aviso de temporada (Navidad) en lugar del pop-up del club; despues vuelve solo el del club.
+const POPUP_SCRIPT_CLUB = '<script src="/assets/club-popup.v1.js" defer></script>';
+const POPUP_SCRIPT_NAVIDAD = '<script src="/assets/navidad-popup.v1.js" defer></script>';
+const POPUP_NAVIDAD_HASTA = 1799298000000;
 
 class InjectHead {
   element(element) {
@@ -30,7 +33,7 @@ class InjectBody {
   }
   element(element) {
     element.prepend(PIXEL_NOSCRIPT, { html: true });
-    element.append(POPUP_SCRIPT, { html: true });
+    element.append((Date.now() < POPUP_NAVIDAD_HASTA ? POPUP_SCRIPT_NAVIDAD : POPUP_SCRIPT_CLUB), { html: true });
     if (this.isClub) element.append(LEAD_SCRIPT, { html: true });
   }
 }
