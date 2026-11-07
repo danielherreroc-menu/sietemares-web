@@ -184,7 +184,7 @@ export async function onRequest(context) {
 }
 
 // Enlaces que se agregan al pie de todas las páginas
-const GH_LINKS = [{"find":"href=\"/nuestras-bebidas/\"","add":"<a href=\"/paella-en-panama/\">Paella en Panamá</a>","skip":"href=\"/paella-en-panama/\""},{"find":"href=\"/paella-en-panama/\"","add":"<a href=\"/centollo-en-panama/\">Centollo y langosta</a>","skip":"href=\"/centollo-en-panama/\""},{"find":"href=\"/salones-para-eventos-en-panama/\"","add":"<a href=\"/ubicacion-siete-mares/\">Ubicación</a>","skip":"href=\"/ubicacion-siete-mares/\""},{"find":"href=\"/opina/\"","add":"<a href=\"/en/seafood-restaurant-panama-city/\" lang=\"en\">In English</a>","skip":"href=\"/en/seafood-restaurant-panama-city/\""}];
+const GH_LINKS = [{"find":"href=\"/carta/\"","add":"<a href=\"/a-domicilio/\">A domicilio</a>","skip":"href=\"/a-domicilio/\""},{"find":"href=\"/nuestras-bebidas/\"","add":"<a href=\"/paella-en-panama/\">Paella en Panamá</a>","skip":"href=\"/paella-en-panama/\""},{"find":"href=\"/paella-en-panama/\"","add":"<a href=\"/centollo-en-panama/\">Centollo y langosta</a>","skip":"href=\"/centollo-en-panama/\""},{"find":"href=\"/salones-para-eventos-en-panama/\"","add":"<a href=\"/ubicacion-siete-mares/\">Ubicación</a>","skip":"href=\"/ubicacion-siete-mares/\""},{"find":"href=\"/opina/\"","add":"<a href=\"/en/seafood-restaurant-panama-city/\" lang=\"en\">In English</a>","skip":"href=\"/en/seafood-restaurant-panama-city/\""}];
 
 // Velocidad: Analytics y el píxel de Meta cargan después de que se ve la página
 const GH_TUNE = {"defer":true};
