@@ -180,5 +180,35 @@ async function ghAddReviews(context, response) {
 
 export async function onRequest(context) {
   const response = await ghBaseOnRequest(context);
-  return ghAddReviews(context, response);
+  return ghAddReviews(context, await ghAddLinks(response));
+}
+
+// Enlaces que se agregan al pie de todas las páginas
+const GH_LINKS = [{"find":"href=\"/paella-en-panama/\"","add":"<a href=\"/centollo-en-panama/\">Centollo y langosta</a>","skip":"href=\"/centollo-en-panama/\""}];
+
+// ---- Enlaces extra en el pie de página (ayudan a que Google encuentre las páginas) ----
+// Cada regla: busca el enlace "find" dentro del <footer class="site-footer"> y agrega "add" después
+// (o antes, si before = true). Si el pie ya tiene el enlace "skip", no hace nada.
+async function ghAddLinks(response) {
+  if (!GH_LINKS.length || response.status !== 200 || !(response.headers.get('content-type') || '').includes('text/html')) return response;
+  let html;
+  try { html = await response.text(); } catch (e) { return response; }
+  const headers = new Headers(response.headers);
+  headers.delete('content-length');
+  try {
+    const fs = html.search(/<footer[^>]*class="[^"]*site-footer/);
+    if (fs >= 0) {
+      let foot = html.slice(fs);
+      for (const l of GH_LINKS) {
+        if (foot.includes(l.skip)) continue;
+        const i = foot.indexOf(l.find);
+        if (i < 0) continue;
+        const pos = l.before ? foot.lastIndexOf('<a', i) : foot.indexOf('</a>', i) + 4;
+        if (pos < 4) continue;
+        foot = foot.slice(0, pos) + l.add + foot.slice(pos);
+      }
+      html = html.slice(0, fs) + foot;
+    }
+  } catch (e) {}
+  return new Response(html, { status: response.status, statusText: response.statusText, headers });
 }
