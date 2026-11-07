@@ -186,18 +186,35 @@ export async function onRequest(context) {
 // Enlaces que se agregan al pie de todas las páginas
 const GH_LINKS = [{"find":"href=\"/nuestras-bebidas/\"","add":"<a href=\"/paella-en-panama/\">Paella en Panamá</a>","skip":"href=\"/paella-en-panama/\""},{"find":"href=\"/paella-en-panama/\"","add":"<a href=\"/centollo-en-panama/\">Centollo y langosta</a>","skip":"href=\"/centollo-en-panama/\""},{"find":"href=\"/salones-para-eventos-en-panama/\"","add":"<a href=\"/ubicacion-siete-mares/\">Ubicación</a>","skip":"href=\"/ubicacion-siete-mares/\""}];
 
-// ---- Enlaces extra en el pie de página (ayudan a que Google encuentre las páginas) ----
-// Cada regla: busca el enlace "find" dentro del <footer class="site-footer"> y agrega "add" después
-// (o antes, si before = true). Si el pie ya tiene el enlace "skip", no hace nada.
+// Velocidad: Analytics y el píxel de Meta cargan después de que se ve la página
+const GH_TUNE = {"defer":true};
+
+// ---- Ajustes de la página en el servidor (enlaces del pie, velocidad) ----
+// GH_LINKS: enlaces que se agregan al <footer class="site-footer"> (si no están ya).
+// GH_TUNE (opcional): defer = Analytics y el píxel de Meta cargan al primer toque/scroll o 3.5 s después de cargar;
+// headAdd = etiquetas que se agregan antes de </head>; headRemove = textos exactos que se quitan.
+const GH_LATE = '<script>window.ghLate=function(f){var d=0,g=function(){if(d)return;d=1;f()};["scroll","pointerdown","touchstart","keydown"].forEach(function(e){addEventListener(e,g,{once:true,passive:true})});if(document.readyState==="complete")setTimeout(g,3500);else addEventListener("load",function(){setTimeout(g,3500)})};</script>';
 async function ghAddLinks(response) {
-  if (!GH_LINKS.length || response.status !== 200 || !(response.headers.get('content-type') || '').includes('text/html')) return response;
+  const tune = (typeof GH_TUNE !== 'undefined') ? GH_TUNE : null;
+  if ((!GH_LINKS.length && !tune) || response.status !== 200 || !(response.headers.get('content-type') || '').includes('text/html')) return response;
   let html;
   try { html = await response.text(); } catch (e) { return response; }
   const headers = new Headers(response.headers);
   headers.delete('content-length');
   try {
+    if (tune) {
+      for (const r of (tune.headRemove || [])) html = html.split(r).join('');
+      if (tune.headAdd && !html.includes(tune.headAdd)) html = html.replace('</head>', tune.headAdd + '</head>');
+      const lateKey = "window.addEventListener('load',function(){var s=document.createElement('script')";
+      const at = html.indexOf(lateKey);
+      if (tune.defer && at >= 0 && !html.includes('window.ghLate=')) {
+        const sAt = html.lastIndexOf('<script', at);
+        html = html.slice(0, sAt) + GH_LATE + html.slice(sAt);
+        html = html.split(lateKey).join("ghLate(function(){var s=document.createElement('script')");
+      }
+    }
     const fs = html.search(/<footer[^>]*class="[^"]*site-footer/);
-    if (fs >= 0) {
+    if (fs >= 0 && GH_LINKS.length) {
       let foot = html.slice(fs);
       for (const l of GH_LINKS) {
         if (foot.includes(l.skip)) continue;
