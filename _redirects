@@ -9,6 +9,9 @@
 /category/mariscos/*     /carta/                          301
 /category/*              /                                301
 /tag/*                   /                                301
+/wp-content/*            /                                301
+/wp-includes/*           /                                301
+/wp-*                    /                                301
 /sitemap_index.xml       /sitemap.xml                     301
 /post-sitemap.xml        /sitemap.xml                     301
 /page-sitemap.xml        /sitemap.xml                     301
