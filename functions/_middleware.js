@@ -183,7 +183,7 @@ async function ghAddReviews(context, response) {
 
 export async function onRequest(context) {
   const response = await ghBaseOnRequest(context);
-  return ghAddReviews(context, await ghAddLinks(response));
+  return ghAddReviews(context, await ghAddFiestas(context, await ghAddLinks(response)));
 }
 
 // Enlaces que se agregan al pie de todas las páginas
@@ -231,4 +231,21 @@ async function ghAddLinks(response) {
     }
   } catch (e) {}
   return new Response(html, { status: response.status, statusText: response.statusText, headers });
+}
+
+
+// Enlace "Fiestas" en el menú principal: lleva a la página de temporada (/navidad/: Thanksgiving, Navidad y demás fiestas).
+const GH_FIESTAS_AFTER = ["nav.site-nav a[href=\"/salones-para-eventos-en-panama/\"]"];
+async function ghAddFiestas(context, response) {
+  try {
+    const ct = response.headers.get('content-type') || '';
+    if (!ct.includes('text/html')) return response;
+    const path = new URL(context.request.url).pathname;
+    const link = '<a href="/navidad/"' + (path.startsWith('/navidad') ? ' aria-current="page"' : '') + '>Fiestas</a>';
+    let rw = new HTMLRewriter();
+    for (const sel of GH_FIESTAS_AFTER) rw = rw.on(sel, { element(e) { e.after(link, { html: true }); } });
+    return rw.transform(response);
+  } catch (err) {
+    return response;
+  }
 }
