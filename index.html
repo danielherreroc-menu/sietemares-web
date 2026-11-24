@@ -115,6 +115,30 @@
       </div>
     </section>
 
+    <section class="sr-band" aria-labelledby="sr-band-titulo">
+      <style>
+        .sr-band{background:#A8201A;color:#fff}
+        .sr-inner{align-items:center;display:grid;gap:clamp(1.25rem,3vw,2.5rem);grid-template-columns:auto 1fr auto;padding:clamp(2rem,3.5vw,3rem) 0}
+        .sr-sobre{background:#8a1813;border:1px solid rgba(255,255,255,.35);height:62px;position:relative;width:92px;overflow:hidden}
+        .sr-sobre::before{border-left:46px solid transparent;border-right:46px solid transparent;border-top:36px solid #c22a22;content:"";left:0;position:absolute;top:0}
+        .sr-sobre::after{background:#C9932A;border-radius:50%;content:"";height:16px;left:38px;position:absolute;top:28px;width:16px}
+        .sr-inner .eyebrow{color:#f6d9b8;margin-bottom:.5rem}
+        .sr-inner h2{color:#fff;margin-bottom:.5rem}
+        .sr-inner p{color:#fff;margin-bottom:0;max-width:640px}
+        .sr-inner .button-light:hover{color:#A8201A}
+        @media (max-width:680px){.sr-inner{grid-template-columns:1fr}.sr-sobre{height:48px;width:72px}.sr-sobre::before{border-left-width:36px;border-right-width:36px;border-top-width:28px}.sr-sobre::after{left:29px;top:21px;height:14px;width:14px}}
+      </style>
+      <div class="container sr-inner">
+        <div class="sr-sobre" aria-hidden="true"></div>
+        <div>
+          <p class="eyebrow">Diciembre 2026 · Enero 2027</p>
+          <h2 id="sr-band-titulo">El Sobre Rojo regresa</h2>
+          <p>En diciembre, cada cuenta recibe un sobre rojo con un regalo sorpresa. Guárdelo cerrado y ábralo en enero en Siete Mares o Le Bistrot. El regalo que le sale es suyo.</p>
+        </div>
+        <a class="button button-light" href="/sobre-rojo/">Cómo funciona</a>
+      </div>
+    </section>
+
     <section class="section section-white story-section">
       <div class="container">
         <div class="story-banner">
